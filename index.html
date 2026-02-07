@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Happy Rose Day ❤️</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
+
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+body {
+  height: 100vh;
+  background: radial-gradient(circle, #ff5f8d, #b8005d);
+  overflow: hidden;
+  color: white;
+  text-align: center;
+}
+
+/* MAIN */
+.container {
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+  padding: 20px;
+  z-index: 10;
+}
+
+h1 {
+  font-family: 'Great Vibes', cursive;
+  font-size: 4rem;
+  margin-bottom: 10px;
+}
+
+.subtitle {
+  font-size: 1.2rem;
+  margin-bottom: 30px;
+}
+
+button {
+  padding: 14px 30px;
+  border: none;
+  border-radius: 30px;
+  background: white;
+  color: #ff2f6d;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: 0.3s;
+  margin: 10px;
+}
+
+button:hover {
+  background: #ffe0ea;
+  transform: scale(1.1);
+}
+
+/* LOVE LETTER */
+.message {
+  margin-top: 30px;
+  font-size: 1.25rem;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+  display: none;
+  line-height: 1.8;
+}
+
+.heart {
+  font-size: 3rem;
+  margin-top: 15px;
+  animation: heartbeat 1.5s infinite;
+}
+
+/* PROPOSAL */
+.proposal {
+  display: none;
+  margin-top: 25px;
+}
+
+/* YES SCREEN */
+.yes-screen {
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(to bottom right, #ff2f6d, #ff85a2);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  z-index: 999;
+}
+
+.yes-screen h2 {
+  font-family: 'Great Vibes', cursive;
+  font-size: 4.5rem;
+}
+
+.yes-screen p {
+  font-size: 1.3rem;
+  margin-top: 15px;
+}
+
+/* ROSES */
+.rose {
+  position: absolute;
+  top: -50px;
+  font-size: 2rem;
+  animation: fall linear infinite;
+}
+
+/* FIREWORKS */
+.firework {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background: white;
+  border-radius: 50%;
+  animation: explode 1.5s ease-out forwards;
+}
+
+/* ANIMATIONS */
+@keyframes fall {
+  to { transform: translateY(110vh); }
+}
+
+@keyframes explode {
+  from { transform: scale(1); opacity: 1; }
+  to { transform: scale(25); opacity: 0; }
+}
+
+@keyframes heartbeat {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.3); }
+  100% { transform: scale(1); }
+}
+</style>
+</head>
+
+<body>
+
+<!-- MUSIC -->
+<audio id="bgMusic" loop>
+  <source src="https://cdn.pixabay.com/audio/2022/03/15/audio_2c61b8b4df.mp3" type="audio/mpeg">
+</audio>
+
+<div class="container" id="main">
+  <h1>Happy Rose Day, Nanna 🌹</h1>
+  <div class="subtitle">Swipe up or tap below 💗</div>
+
+  <button onclick="startSurprise()">Tap to Begin 💝</button>
+
+  <div class="message" id="loveMessage"></div>
+
+  <div class="proposal" id="proposal">
+    <p>One last question… 💍</p>
+    <button onclick="yesForever()">Will you be mine forever? ❤️</button>
+  </div>
+
+  <div class="heart" id="finalHeart" style="display:none;">❤️</div>
+</div>
+
+<!-- YES CELEBRATION -->
+<div class="yes-screen" id="yesScreen">
+  <h2>She said YES 💞</h2>
+  <p>And I Love You to the core bangaram! I will never leave you nannaluuuu 💞✨</p>
+  <div class="heart">❤️</div>
+</div>
+
+<script>
+const letterText = `
+Every single day with you feels like magic.
+Through smiles, fights, silence and storms,
+my heart always found its way back to you.
+
+This rose 🌹 is not just a flower,
+it’s my promise,
+my love,
+and my forever.
+`;
+
+let index = 0;
+let startY = 0;
+
+function startSurprise() {
+  document.getElementById("bgMusic").play();
+  document.getElementById("loveMessage").style.display = "block";
+  typeLetter();
+  startFireworks();
+  setInterval(createRose, 400);
+}
+
+function typeLetter() {
+  if (index < letterText.length) {
+    document.getElementById("loveMessage").innerHTML += letterText.charAt(index);
+    index++;
+    setTimeout(typeLetter, 45);
+  } else {
+    document.getElementById("proposal").style.display = "block";
+  }
+}
+
+function createRose() {
+  const rose = document.createElement("div");
+  rose.classList.add("rose");
+  rose.innerHTML = "🌹";
+  rose.style.left = Math.random() * 100 + "vw";
+  rose.style.animationDuration = (Math.random() * 3 + 4) + "s";
+  document.body.appendChild(rose);
+  setTimeout(() => rose.remove(), 7000);
+}
+
+function startFireworks() {
+  setInterval(() => {
+    const fw = document.createElement("div");
+    fw.classList.add("firework");
+    fw.style.left = Math.random() * 100 + "vw";
+    fw.style.top = Math.random() * 50 + "vh";
+    document.body.appendChild(fw);
+    setTimeout(() => fw.remove(), 1500);
+  }, 800);
+}
+
+function yesForever() {
+  document.getElementById("yesScreen").style.display = "flex";
+}
+
+/* MOBILE SWIPE */
+document.addEventListener("touchstart", e => {
+  startY = e.touches[0].clientY;
+});
+
+document.addEventListener("touchend", e => {
+  let endY = e.changedTouches[0].clientY;
+  if (startY - endY > 100) {
+    startSurprise();
+  }
+});
+</script>
+
+</body>
+</html>
